@@ -32,7 +32,7 @@ module ActiveMailer #:nodoc:
     alias :ar_sender= :sender=
     def sender=(email)
       if email.is_a?(String)
-        self.ar_sender = EmailUser.find_or_create_by_email_address(email)
+        self.ar_sender = EmailUser.find_or_create_by(:email_address => email)
       else
         self.ar_sender = email
       end
@@ -44,7 +44,7 @@ module ActiveMailer #:nodoc:
       emails.compact!
       self.ar_recipients = emails.map! do |email|
         if email.is_a?(String)
-          EmailUser.find_or_create_by_email_address(email)
+          EmailUser.find_or_create_by(:email_address => email)
         else
           email
         end
